@@ -1,13 +1,22 @@
 import React from "react";
 
-function QuestionItem({ question }) {
+function QuestionItem({ question, deleteAndDisposeQ , patchCorrectIndex}) {
   const { id, prompt, answers, correctIndex } = question;
-
+  console.log("answer", answers)
   const options = answers.map((answer, index) => (
     <option key={index} value={index}>
       {answer}
     </option>
   ));
+
+  const deleteQ = () =>{
+    deleteAndDisposeQ(question)
+  }
+
+  const patchA = (e) =>{
+    patchCorrectIndex(question, e.target.value)
+   
+  }
 
   return (
     <li>
@@ -15,11 +24,11 @@ function QuestionItem({ question }) {
       <h5>Prompt: {prompt}</h5>
       <label>
         Correct Answer:
-        <select defaultValue={correctIndex}>{options}</select>
+        <select onChange={patchA} defaultValue={correctIndex}>{options}</select>
       </label>
-      <button>Delete Question</button>
+      <button onClick={deleteQ}>Delete Question</button>
     </li>
   );
-}
+  }
 
-export default QuestionItem;
+  export default QuestionItem;
